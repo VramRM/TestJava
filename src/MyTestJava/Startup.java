@@ -332,6 +332,11 @@ public class Startup {
 		}
 		System.out.println(itc.sum);
 		
+		System.out.println();
+		System.out.println("************Functional Programming*************");
+		System.out.println();
+		
+		FunctionalPrograming.Test();
 	}
 
 //private static void testReentrantLock() {
