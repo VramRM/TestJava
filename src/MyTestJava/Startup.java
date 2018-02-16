@@ -1,5 +1,6 @@
 package MyTestJava;
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,8 +16,12 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
+
 
 public class Startup {
 
@@ -244,6 +249,88 @@ public class Startup {
 		
 		TestGenerics.Test();
 		
+		System.out.println();
+		System.out.println("************ TestThreading Example ************");
+		System.out.println();
+		
+		BattingStats bs = new BattingStats();
+		bs.setPriority(1);
+		BowlingStats bos = new BowlingStats();
+		Thread bts = new Thread(bos);
+
+		
+//		bts.setPriority(10);
+//		bs.start();
+//		bts.start();
+		
+//		for(int i = 0; i<10; i++) {
+//			System.out.println("State of Batting Stats: " + bs.getState());
+//			System.out.println("State of Bowling Stats: " + bts.getState());
+//		}
+//		
+//		System.out.println();
+//		System.out.println("************ States of Thread ************");
+//		System.out.println("NEW");
+//		System.out.println("RUNNABLE");
+//		System.out.println("RUNNING");
+//		System.out.println("WAITING");
+//		System.out.println("DEAL");
+//
+//		System.out.println("************Executor Services*************");
+		
+		//ExecutorService  myExecutorService = Executors.newSingleThreadExecutor();
+		
+		//myExecutorService.execute(bos);
+		
+		//myExecutorService.shutdown();
+		//System.out.println("End of Main");
+		
+//		ExecutorService  myFixedThreadExecutorService = Executors.newFixedThreadPool(3);
+//		myFixedThreadExecutorService.execute(bos);
+//		myFixedThreadExecutorService.execute(bos);
+//		myFixedThreadExecutorService.execute(bos);
+		
+//		ExecutorService myScheduledThreadPool = Executors.newScheduledThreadPool(3);
+//		
+//		myScheduledThreadPool.execute(bos);
+//		myScheduledThreadPool.execute(bos);
+//		myScheduledThreadPool.execute(bos);
+		
+		
+//		ExecutorService  myExecutorService2 = Executors.newFixedThreadPool(10);
+//		
+//		Future future = myExecutorService2.submit(bos);
+//		try {
+//			System.out.println("Future Get: ");
+//			System.out.println("Future Get: " + future.get());
+//		} catch (InterruptedException | ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		FieldingStats fs = new FieldingStats();
+//		
+//		Future futureCallable = myExecutorService2.submit(fs);
+//		try {
+//			System.out.println("futureCallable Get: ");
+//			System.out.println(" futureCallable Get: " + futureCallable.get());
+//		} catch (InterruptedException | ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		InterThreadCommunication itc = new InterThreadCommunication();
+		itc.start();
+		synchronized(itc) {
+				try {
+				itc.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println(itc.sum);
 		
 	}
 
