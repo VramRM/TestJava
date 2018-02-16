@@ -1,3 +1,4 @@
+package MyTestJava;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,9 +13,16 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Startup {
 
+	static ReentrantLock lock = new ReentrantLock();
+	static ReentrantLock lock2 = new ReentrantLock();
+	
 	public static void main(String[] args) {
 		//List
 		//ArrayList
@@ -46,7 +54,12 @@ public class Startup {
 			System.out.println(arrayListIterator.next());
 		}
 		
-		List<Student> student = new ArrayList<Student>();
+		System.out.println();
+		System.out.println("************ ArrayList/CopyOnWriteArrayList Example ************");
+		System.out.println();
+		
+		//List<Student> student = new ArrayList<Student>();
+		List<Student> student = new CopyOnWriteArrayList<Student>();
 		student.add(new Student("Rajiv", 10));
 		student.add(new Student("ABC", 20));
 		student.add(new Student("XYZ", 1));
@@ -71,7 +84,12 @@ public class Startup {
 		
 		System.out.println(student);
 		System.out.println();
+
 		//HashSet
+		
+		System.out.println();
+		System.out.println("************ HashSet Example ************");
+		System.out.println();
 		
 		HashSet<Student> hashSet = new HashSet<Student>();
 		
@@ -162,8 +180,94 @@ public class Startup {
 		System.out.println(tmStudent.ceilingEntry("2"));
 		System.out.println(tmStudent.lastKey());
 		
+		
+		
+		//Synchronized
+		//Concurrent Collection
+		//Subject Observer Scenario
+		
+		//Compare and Swap
+		
+		//ConcurrentlinkQueue 
+		
+		
+		System.out.println();
+		System.out.println("************ FailFast Example ************");
+		System.out.println();
+		
+		HashMap<String,String> failFast = new HashMap<String,String>();
+		failFast.put("1", "Rajiv");
+		failFast.put("2", "Rajiv2");
+		failFast.put("3", "Rajiv3");
+		failFast.put("4", "Rajiv4");
+		
+		Iterator<String> failFastIterator = failFast.keySet().iterator();
+		try {
+			
+			while(failFastIterator.hasNext()) {
+				System.out.println(failFastIterator.next());
+				failFast.put("5", "Rajiv5");
+			}
+		}catch(Exception e) {
+			System.out.println("************ FailFast Exception**************");
+			System.out.println(e.toString());
+			
+		}
+		
+		System.out.println();
+		System.out.println("************ FailSafe Example ************");
+		System.out.println();
+		
+		ConcurrentHashMap<String,String> failSafe = new ConcurrentHashMap<String,String>();
+		
+		failSafe.put("2", "Rajiv2");
+		failSafe.put("3", "Rajiv3");
+		failSafe.put("4", "Rajiv4");
+		
+		Iterator<String> failSafeIterator = failSafe.keySet().iterator();
+		
+		while(failSafeIterator.hasNext()) {
+			System.out.println(failSafeIterator.next());
+			failSafe.put("1", "Rajiv");
+		}
+		
+		failSafeIterator = failSafe.keySet().iterator();
+		while(failSafeIterator.hasNext()) {
+			System.out.println(failSafeIterator.next());			
+		}
+		
+//		testReentrantLock();	
+		
+		System.out.println();
+		System.out.println("************ TestGenerics Example ************");
+		System.out.println();
+		
+		TestGenerics.Test();
+		
+		
 	}
 
+//private static void testReentrantLock() {
+//		ReentrantLock	lock	=	this.lock;
+//		lock.lock();
+//		try{
+//			System.out.println();
+//			System.out.println("************ ReentrantLock Example ************");
+//			System.out.println();
+//			
+//		}
+//		finally {
+//			lock.unlock();
+//		}
+//		
+//	}
+	
+	
+		
+	
+	
+	
+	
 
 }
 

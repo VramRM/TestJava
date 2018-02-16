@@ -1,3 +1,4 @@
+package MyTestJava;
 
 public class Student implements Comparable<Student> {
 	String name;
